@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>personality Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <style>
+        .content {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .container-flex {
+            width: 100%;
+            height: 100vh;
+        
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+   
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">personality Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+
+                <form class="d-flex" role="search">
+
+                    <button class="btn btn-outline-success" type="submit"><a class="bottom"
+                            href="{{url_for('login')}}">Login</a></button>
+                    <button class="btn btn-outline-success" type="submit"><a class="bottom"
+                            href="{{url_for('register')}}">Register</a></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-flex">
+        <br><br>
+        <center>
+            <h2>Questionaries...</h2>
+        </center>
+        <br><br>
+        <form class="row g-3" action="{{ url_for('questions') }}" method="post">
+         
+           <div class="row">
+                <div class="col-sm-4">
+                </div>
+
+                <div class="col-sm-4">
+                    GENDER: <br>
+                    <input type="text" name="gender" placeholder="Male/Female" required><br>
+                    AGE: <br>
+                    <input type="text" name="age" placeholder="Enter your age" required><br><br>
+                    do you enjoy thinking about abstract concept and theories: <br>
+                    <input type="radio" id="openness1" name="openness1" value="1">Yes
+                    <input type="radio" id="openness1" name="openness1" value="2">No<br><br>
+                    would you say that you have a vivid imagination <br>
+                    <input type="radio" id="openness2" name="openness2" value="1">Yes
+                    <input type="radio" id="openness2" name="openness2" value="2">No<br><br>
+                    are you open to different cultures and way of life: <br>
+                    <input type="radio" id="openness3" name="openness3" value="1">Yes
+                    <input type="radio" id="openness3" name="openness3" value="2">No<br><br>
+                    do you enjoy trying new foods and cuisines: <br>
+                    <input type="radio" id="openness4" name="openness4" value="1">Yes
+                    <input type="radio" id="openness4" name="openness4" value="2">No<br><br>
+                    would you say that you are creative: <br>
+                    <input type="radio" id="openness5" name="openness5" value="1">Yes
+                    <input type="radio" id="openness5" name="openness5" value="2">No<br><br>
+                    would you say that you are organized and responsible: <br>
+                    <input type="radio" id="neuroticism1" name="neuroticism1" value="1">Yes
+                    <input type="radio" id="neuroticism1" name="neuroticism1" value="2">No<br><br>
+                    do you value punctuality and meeting deadlines: <br>
+                    <input type="radio" id="neuroticism2" name="neuroticism2" value="1">Yes
+                    <input type="radio" id="neuroticism2" name="neuroticism2" value="2">No<br><br>
+                    are you a planner and do you like to set goals for yourself: <br>
+                    <input type="radio" id="neuroticism3" name="neuroticism3" value="1">Yes
+                    <input type="radio" id="neuroticism3" name="neuroticism3" value="2">No<br><br>
+                    would you say that you are reliable and dependable: <br>
+                    <input type="radio" id="neuroticism4" name="neuroticism4" value="1">Yes
+                    <input type="radio" id="neuroticism4" name="neuroticism4" value="2">No<br><br>
+                    do you pay attention to details and try to avoid mistakes: <br>
+                    <input type="radio" id="neuroticism5" name="neuroticism5" value="1">Yes
+                    <input type="radio" id="neuroticism5" name="neuroticism5" value="2">No<br><br>
+                    do you enjoy being around people and socialization: <br>
+                    <input type="radio" id="conscientiousness1" name="conscientiousness1" value="1">Yes
+                    <input type="radio" id="conscientiousness1" name="conscientiousness1" value="2">No<br><br>
+                    do you feel energized and recharged after spending time with others: <br>
+                    <input type="radio" id="conscientiousness2" name="conscientiousness2" value="1">Yes
+                    <input type="radio" id="conscientiousness2" name="conscientiousness2" value="2">No<br><br>
+                    would you say that you are outgoing and talkative: <br>
+                    <input type="radio" id="conscientiousness3" name="conscientiousness3" value="1">Yes
+                    <input type="radio" id="conscientiousness3" name="conscientiousness3" value="2">No<br><br>
+                    do you enjoy being the center of attention: <br>
+                    <input type="radio" id="conscientiousness4" name="conscientiousness4" value="1">Yes
+                    <input type="radio" id="conscientiousness4" name="conscientiousness4" value="2">No<br><br>
+                    do you enjoy participation in group activity: <br>
+                    <input type="radio" id="conscientiousness5" name="conscientiousness5" value="1">Yes
+                    <input type="radio" id="conscientiousness5" name="conscientiousness5" value="2">No<br><br>
+                
+                    would you say that you are friendly and compassionate: <br>
+                    <input type="radio" id="agreeableness1" name="agreeableness1" value="1">Yes
+                    <input type="radio" id="agreeableness1" name="agreeableness1" value="2">No<br><br>
+                    do you value cooperation and harmony in your relationships: <br>
+                    <input type="radio" id="agreeableness2" name="agreeableness2" value="1">Yes
+                    <input type="radio" id="agreeableness2" name="agreeableness2" value="2">No<br><br>
+                    are you sensitive to other peoples feelings: <br>
+                    <input type="radio" id="agreeableness3" name="agreeableness3" value="1">Yes
+                    <input type="radio" id="agreeableness3" name="agreeableness3" value="2">No<br><br>
+                    would you say that you are a good listener: <br>
+                    <input type="radio" id="agreeableness4" name="agreeableness4" value="1">Yes
+                    <input type="radio" id="agreeableness4" name="agreeableness4" value="2">No<br><br>
+                    do you avoid conflict and try to find compromise solution: <br>
+                    <input type="radio" id="agreeableness5" name="agreeableness5" value="1">Yes
+                    <input type="radio" id="agreeableness5" name="agreeableness5" value="2">No<br><br>
+                    do you tend to worry a lot and feel anxious: <br>
+                    <input type="radio" id="extraversion1" name="extraversion1" value="1">Yes
+                    <input type="radio" id="extraversion1" name="extraversion1" value="2">No<br><br>
+                    are you easily upset or frustrated by small things: <br>
+                    <input type="radio" id="extraversion2" name="extraversion2" value="1">Yes
+                    <input type="radio" id="extraversion2" name="extraversion2" value="2">No<br><br>
+                    would you say that you are emotionally unstable: <br>
+                    <input type="radio" id="extraversion3" name="extraversion3" value="1">Yes
+                    <input type="radio" id="extraversion3" name="extraversion3" value="2">No<br><br>
+                    do you have a tendency to be self-critical and negative: <br>
+                    <input type="radio" id="extraversion4" name="extraversion4" value="1">Yes
+                    <input type="radio" id="extraversion4" name="extraversion4" value="2">No<br><br>
+                    do you feel overwhelmed by stress: <br>
+                    <input type="radio" id="extraversion5" name="extraversion5" value="1">Yes
+                    <input type="radio" id="extraversion5" name="extraversion5" value="2">No<br><br>
+                    <input type="submit" name="submit" value="Predict" class="button">
+                </div>
+
+                <div class="col-sm-4">
+                </div>
+            </div>
+            
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
