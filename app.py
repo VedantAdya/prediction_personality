@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 app.secret_key = '6f28a750db5ccee79a01c796852cf6a7'
   
-conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
+conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_disabled=True);
 print ("Opened database successfully");
 
 conn.cursor().execute("CREATE TABLE IF NOT EXISTS predict_person (name VARCHAR(30), email VARCHAR(30), password VARCHAR(30))");
