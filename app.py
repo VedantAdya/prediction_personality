@@ -2,28 +2,30 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import os
 import numpy as np
 import sqlite3
+import mysql.connector
 import re
 from sklearn.preprocessing import StandardScaler
 import joblib
 model = joblib.load("train_model1.pkl")
 scaler = StandardScaler()
-  
+
+import secrets
 
   
 app = Flask(__name__)
 
+app.secret_key = '6f28a750db5ccee79a01c796852cf6a7'
   
-  
-conn = sqlite3.connect('personality_predict.db')
-print ("Opened database successfully")
+conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
+print ("Opened database successfully");
 
-conn.execute('CREATE TABLE IF NOT EXISTS predict_person (name VARCHAR(30), email VARCHAR(30), password VARCHAR(30))');
+conn.cursor().execute("CREATE TABLE IF NOT EXISTS predict_person (name VARCHAR(30), email VARCHAR(30), password VARCHAR(30))");
 print ("Table created successfully");
 
-conn.execute('CREATE TABLE IF NOT EXISTS questionery (id INTEGER PRIMARY KEY AUTOINCREMENT, op1 varchar(10), op2 varchar(10), op3 varchar(10), op4 varchar(10), op5 varchar(10), op6 varchar(10), op7 varchar(10), op8 varchar(10), op9 varchar(10), op10 varchar(10), con1 varchar(10), con2 varchar(10), con3 varchar(10), con4 varchar(10), con5 varchar(10), con6 varchar(10), con7 varchar(10), con8 varchar(10), con9 varchar(10), con10 varchar(10), ext1 varchar(10), ext2 varchar(10), ext3 varchar(10), ext4 varchar(10), ext5 varchar(10), ext6 varchar(10), ext7 varchar(10), ext8 varchar(10), ext9 varchar(10), ext10 varchar(10), agr1 varchar(10), agr2 varchar(10), agr3 varchar(10), agr4 varchar(10), agr5 varchar(10), agr6 varchar(10), agr7 varchar(10), agr8 varchar(10), agr9 varchar(10), agr10 varchar(10), ne1 varchar(10), ne2 varchar(10), ne3 varchar(10), ne4 varchar(10), ne5 varchar(10), ne6 varchar(10), ne7 varchar(10), ne8 varchar(10), ne9 varchar(10), ne10 varchar(10))')
+conn.cursor().execute('CREATE TABLE IF NOT EXISTS questionery (id INTEGER PRIMARY KEY AUTO_INCREMENT, op1 varchar(10), op2 varchar(10), op3 varchar(10), op4 varchar(10), op5 varchar(10), op6 varchar(10), op7 varchar(10), op8 varchar(10), op9 varchar(10), op10 varchar(10), con1 varchar(10), con2 varchar(10), con3 varchar(10), con4 varchar(10), con5 varchar(10), con6 varchar(10), con7 varchar(10), con8 varchar(10), con9 varchar(10), con10 varchar(10), ext1 varchar(10), ext2 varchar(10), ext3 varchar(10), ext4 varchar(10), ext5 varchar(10), ext6 varchar(10), ext7 varchar(10), ext8 varchar(10), ext9 varchar(10), ext10 varchar(10), agr1 varchar(10), agr2 varchar(10), agr3 varchar(10), agr4 varchar(10), agr5 varchar(10), agr6 varchar(10), agr7 varchar(10), agr8 varchar(10), agr9 varchar(10), agr10 varchar(10), ne1 varchar(10), ne2 varchar(10), ne3 varchar(10), ne4 varchar(10), ne5 varchar(10), ne6 varchar(10), ne7 varchar(10), ne8 varchar(10), ne9 varchar(10), ne10 varchar(10))')
 
 print ("Table created successfully");
-conn.close()
+conn.cursor().close()
 
 
 
@@ -47,7 +49,7 @@ def admin():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        if email == "vedant@gmail.com" and password == "123":
+        if email == "vidya@gmail.com" and password == "123":
             return render_template('upload.html')
            
     return render_template('admin.html')
@@ -58,10 +60,12 @@ def upload():
         file = request.files['file']
         print(file)
         if file:
-            file.save(r'C:\Users\Vedant\Desktop\personality_predict\personality_predict\uploads_files\\' + file.filename)
-            message = 'File uploaded successfully!'
-            # flash('CSV file uploaded successfully!', 'success')
-            return render_template('upload.html', message=message)
+            file.save(r'C:\Users\Administrator\Desktop\personality_predict\uploads_files\\' + file.filename)
+            # message = 'File uploaded successfully!'
+            flash('CSV file uploaded successfully!', 'success')
+            return redirect(url_for('/upload'))
+         
+    
           
     
 
@@ -78,9 +82,9 @@ def login():
         password = request.form['password']
 
         # check if the user exists in the database
-        conn = sqlite3.connect('personality_predict.db', check_same_thread=False)
+        conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM predict_person WHERE email=? AND password=?', (email, password))
+        cursor.execute('''SELECT * FROM predict_person WHERE email=%s AND password=%s''', (email, password))
         user = cursor.fetchone()
         conn.close()
 
@@ -118,9 +122,9 @@ def register():
         userName = request.form['name']
         password = request.form['password']
         email = request.form['email']
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO predict_person(name, email, password) VALUES (?,?,?)",(userName, email, password))
+            cur.execute('''INSERT INTO predict_person(name, email, password) VALUES (%s,%s,%s)''',(userName, email, password))
 
             con.commit()
             msg = "record added successfully"
@@ -216,9 +220,9 @@ def que2():
         openness9 = request.form['openness9']
         openness10 = request.form['openness10']
         print(openness1)
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            cur.execute("INSERT INTO  questionery (op1 , op2 , op3 , op4 , op5, op6, op7, op8, op9, op10 ) VALUES (?,?,?,?,?,?,?,?,?,?)",(openness1,openness2, openness3,openness4,openness5,openness6,openness7,openness8,openness9,openness10))
+            cur.execute('''INSERT INTO  questionery (op1 , op2 , op3 , op4 , op5, op6, op7, op8, op9, op10 ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(openness1,openness2, openness3,openness4,openness5,openness6,openness7,openness8,openness9,openness10))
 
             con.commit()
             msg = "record added successfully"
@@ -242,12 +246,12 @@ def que3():
         conscientiousness9 = request.form['conscientiousness9']
         conscientiousness10 = request.form['conscientiousness10']
      
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (?,?,?,?,?)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
+            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
-            query = 'UPDATE questionery SET con1 = ? , con2= ? , con3  = ?, con4 = ? , con5  = ?, con6 = ? , con7 = ? , con8  = ?, con9 = ? , con10  = ? WHERE id = ?'
-            cur.execute("SELECT MAX(id) FROM questionery")
+            query = '''UPDATE questionery SET con1 = %s , con2= %s , con3  = %s, con4 = %s , con5  = %s, con6 = %s , con7 = %s , con8  = %s, con9 = %s , con10  = %s WHERE id = %s'''
+            cur.execute('''SELECT MAX(id) FROM questionery''')
 
 # Fetch the result
             result = cur.fetchone()
@@ -277,12 +281,12 @@ def que4():
         extraversion9 = request.form['extraversion9']
         extraversion10 = request.form['extraversion10']
       
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (?,?,?,?,?)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
+            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
-            query = 'UPDATE questionery SET ext1 = ? , ext2= ? , ext3  = ?, ext4 = ? , ext5  = ?, ext6 = ? , ext7 = ? , ext8  = ?, ext9 = ? , ext10  = ? WHERE id = ?'
-            cur.execute("SELECT MAX(id) FROM questionery")
+            query = '''UPDATE questionery SET ext1 = %s , ext2= %s , ext3  = %s, ext4 = %s , ext5  = %s, ext6 = %s , ext7 = %s , ext8  = %s, ext9 = %s , ext10  = %s WHERE id = %s'''
+            cur.execute('''SELECT MAX(id) FROM questionery''')
 
 # Fetch the result
             result = cur.fetchone()
@@ -313,12 +317,12 @@ def que5():
         agreeableness9 = request.form['agreeableness9']
         agreeableness10 = request.form['agreeableness10']
       
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (?,?,?,?,?)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
+            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
-            query = 'UPDATE questionery SET agr1 = ? , agr2= ? , agr3  = ?, agr4 = ? , agr5  = ?, agr6 = ? , agr7 = ? , agr8  = ?, agr9 = ? , agr10  = ? WHERE id = ?'
-            cur.execute("SELECT MAX(id) FROM questionery")
+            query = '''UPDATE questionery SET agr1 = %s , agr2= %s , agr3  = %s, agr4 = %s , agr5  = %s, agr6 = %s , agr7 = %s , agr8  = %s, agr9 = %s , agr10  = %s WHERE id = %s'''
+            cur.execute('''SELECT MAX(id) FROM questionery''')
 
 # Fetch the result
             result = cur.fetchone()
@@ -349,12 +353,12 @@ def que6():
         neuroticism10 = request.form['neuroticism10']
       
       
-        with sqlite3.connect("personality_predict.db") as con:
+        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
-            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (?,?,?,?,?)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
+            # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
-            query = 'UPDATE questionery SET ne1 = ? , ne2= ? , ne3  = ?, ne4 = ? , ne5  = ?, ne6 = ? , ne7= ? , ne8  = ?, ne9 = ? , ne10  = ? WHERE id = ?'
-            cur.execute("SELECT MAX(id) FROM questionery")
+            query = '''UPDATE questionery SET ne1 = %s , ne2= %s , ne3  = %s, ne4 = %s , ne5  = %s, ne6 = %s , ne7= %s , ne8  = %s, ne9 = %s , ne10  = %s WHERE id = %s'''
+            cur.execute('''SELECT MAX(id) FROM questionery''')
 
 # Fetch the result
             result = cur.fetchone()
@@ -365,8 +369,6 @@ def que6():
 
             con.commit()
             msg = "record added successfully"
-
-            
 
             import random
 
