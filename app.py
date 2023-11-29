@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import numpy as np
 import sqlite3
@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 app.secret_key = '6f28a750db5ccee79a01c796852cf6a7'
   
-conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict",  ssl_ca="{ca-cert filename}", ssl_disabled=False);
+conn = mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
 print ("Opened database successfully");
 
 conn.cursor().execute("CREATE TABLE IF NOT EXISTS predict_person (name VARCHAR(30), email VARCHAR(30), password VARCHAR(30))");
@@ -82,7 +82,7 @@ def login():
         password = request.form['password']
 
         # check if the user exists in the database
-        conn = mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
+        conn = mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False);
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM predict_person WHERE email=%s AND password=%s''', (email, password))
         user = cursor.fetchone()
@@ -122,7 +122,7 @@ def register():
         userName = request.form['name']
         password = request.form['password']
         email = request.form['email']
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             cur.execute('''INSERT INTO predict_person(name, email, password) VALUES (%s,%s,%s)''',(userName, email, password))
 
@@ -220,7 +220,7 @@ def que2():
         openness9 = request.form['openness9']
         openness10 = request.form['openness10']
         print(openness1)
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             cur.execute('''INSERT INTO  questionery (op1 , op2 , op3 , op4 , op5, op6, op7, op8, op9, op10 ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''',(openness1,openness2, openness3,openness4,openness5,openness6,openness7,openness8,openness9,openness10))
 
@@ -246,7 +246,7 @@ def que3():
         conscientiousness9 = request.form['conscientiousness9']
         conscientiousness10 = request.form['conscientiousness10']
      
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
@@ -281,7 +281,7 @@ def que4():
         extraversion9 = request.form['extraversion9']
         extraversion10 = request.form['extraversion10']
       
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
@@ -317,7 +317,7 @@ def que5():
         agreeableness9 = request.form['agreeableness9']
         agreeableness10 = request.form['agreeableness10']
       
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
@@ -353,7 +353,7 @@ def que6():
         neuroticism10 = request.form['neuroticism10']
       
       
-        with mysql.connector.connect(user="redblack", password="Server@1", host="test-for-python.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
+        with mysql.connector.connect(user="redblack", password="Password@123", host="predict-db.mysql.database.azure.com", port=3306, database="personality_predict", ssl_ca="{ca-cert filename}", ssl_disabled=False) as con:
             cur = con.cursor()
             # cur.execute("INSERT INTO  questionery (ne1  , ne2 , ne3  , ne4 , ne5  ) VALUES (%s,%s,%s,%s,%s)",(neuroticism1,neuroticism2, neuroticism3,neuroticism4,neuroticism5))
                  
@@ -384,4 +384,4 @@ def que6():
 
     
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run()
