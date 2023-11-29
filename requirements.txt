@@ -3,3 +3,4 @@ gunicorn
 werkzeug==2.2.2
 numpy
 mysql-connector-python
+scikit-learn
