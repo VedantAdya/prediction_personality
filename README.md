@@ -24,4 +24,4 @@ The goal of this project is to build a model that predicts the personality of th
 <br>
 <br>
 <h1>PROJECT EXECUTION STEPS:</h1>
-<h2>open browser then type 20.42.97.243 </h2>
+<h2>project demo url 20.42.97.243/5000 </h2>
