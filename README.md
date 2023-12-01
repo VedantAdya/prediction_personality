@@ -23,14 +23,23 @@ The goal of this project is to build a model that predicts the personality of th
 <ul>Machine Learning Studio</ul>
 
 <h3>Screenshots of the image</h3>
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/983e3589-64da-469e-8812-c147128fbc18)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/e116d8f1-dd62-49bc-93d6-62f3be58fb47)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/48885717-e9fe-42ce-9588-5b4d2086a2d9)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/ab195565-44f8-4278-a735-2c8d98800aa9)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/4d73a7bb-5351-4721-a233-0a7bd9f507d0)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/3b7aa8fd-f103-4f96-a56d-61d612b1bf0e)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/f326533c-bd19-445c-9123-e224cd283c6c)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/cb3e2c9c-e630-4ca4-b946-5c7df2eb3d56)
+
 ![image](https://github.com/VedantAdya/prediction_personality/assets/102545015/2e4d665f-02bb-41f8-a560-5f2a3b05e3ff)
 
 
